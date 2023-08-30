@@ -63,7 +63,7 @@ misestmd config keyring-backend test
 misestmd init $NODENAME --chain-id $MISES_CHAIN_ID
 
 # download genesis and addrbook
-curl https://w1.mises.site:443/genesis | jq .result.genesis > ~/.misestm/config/genesis.json
+curl https://w2.mises.site:443/genesis | jq .result.genesis > ~/.misestm/config/genesis.json
 wget -O $HOME/.misestm/config/addrbook.json https://raw.githubusercontent.com/Genz22/mainnet-node/main/mises/addrbook.json
 
 # set peers and seeds
@@ -83,7 +83,7 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 
 #State sync
 echo '=============== STATE SYNC ==================='
-read BLOCK_HASH BLOCK_HEIGHT < <(echo $(curl https://w1.mises.site:443/block -s | jq -r '.result.block_id.hash,.result.block.header.height')) 
+read BLOCK_HASH BLOCK_HEIGHT < <(echo $(curl https://w2.mises.site:443/block -s | jq -r '.result.block_id.hash,.result.block.header.height')) 
 
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"https://e1.mises.site:443,https://e2.mises.site:443,https://w1.mises.site:443,https://w2.mises.site:443\"| ; \
